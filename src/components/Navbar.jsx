@@ -3,28 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
+import Image from "next/image";
 
-function LogoMark() {
-  return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-900/40">
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="white"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-5 w-5"
-        aria-hidden="true"
-      >
-        <path d="M12 21C12 21 3 16 3 9a9 9 0 0 1 18 0c0 7-9 12-9 12z" />
-        <line x1="12" y1="21" x2="12" y2="9" />
-        <line x1="12" y1="13" x2="8" y2="10" />
-        <line x1="12" y1="16" x2="16" y2="13" />
-      </svg>
-    </div>
-  );
-}
+
 
 function MobileLink({ href, label, onClick }) {
   return (
@@ -54,9 +35,16 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <LogoMark />
+           <Image
+              src="/logo.png"
+              alt="Wisdomio Logo"
+              width={48}
+              height={48}
+              className="rounded-lg"
+              priority
+            />
           <span className="hidden text-[15px] font-semibold tracking-tight text-white sm:block">
-            Digital Life Lessons
+            Wisdomio
           </span>
         </Link>
 
