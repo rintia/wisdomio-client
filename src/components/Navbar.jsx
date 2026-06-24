@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import { useSession, signOut } from "@/lib/auth-client";
+
 
 
 
@@ -21,6 +23,14 @@ function MobileLink({ href, label, onClick }) {
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session, isPending } = useSession();
+  const user = session?.user;
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOut();
+
+  }
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -65,22 +75,70 @@ export default function Navbar() {
 
           <div className="h-5 w-px bg-white/15" />
 
-          <div className="flex items-center gap-3">
-            <Link
-              href="/auth/signin"
-              className="text-sm font-medium text-emerald-400 transition hover:text-emerald-300"
-            >
-              Sign In
-            </Link>
-            <Button
-              as={Link}
-              href="/auth/signup"
-              radius="lg"
-              className="h-9 bg-emerald-500 px-5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 hover:bg-emerald-400"
-            >
-              Get Started
-            </Button>
+         <div className="flex items-center gap-3 relative">
+
+  {!user ? (
+    <>
+      <Link
+        href="/auth/signin"
+        className="text-sm font-medium text-emerald-400 transition hover:text-emerald-300"
+      >
+        Sign In
+      </Link>
+
+      <Button
+        as={Link}
+        href="/auth/signup"
+        radius="lg"
+        className="h-9 bg-emerald-500 px-5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 hover:bg-emerald-400"
+      >
+        Get Started
+      </Button>
+    </>
+  ) : (
+    <div className="relative">
+
+      {/* Avatar button */}
+      <button
+        onClick={() => setDropdownOpen(!dropdownOpen)}
+        className="flex items-center justify-center"
+      >
+        <Image
+          src={user.image || "/default-avatar.png"}
+          alt="user"
+          width={36}
+          height={36}
+          className="rounded-full border border-white/20"
+        />
+      </button>
+
+      {/* Dropdown */}
+      {dropdownOpen && (
+        <div className="absolute right-0 mt-2 w-52 overflow-hidden rounded-xl border border-white/10 bg-[#0e1412] shadow-xl z-50">
+
+          <div className="px-4 py-3 border-b border-white/10">
+            <p className="text-sm font-semibold text-white">
+              {user.name}
+            </p>
+            <p className="text-xs text-gray-400">
+              {user.email}
+            </p>
           </div>
+
+          <button
+            onClick={async () => {
+              await signOut();
+              setDropdownOpen(false);
+            }}
+            className="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-white/5"
+          >
+            Sign out
+          </button>
+        </div>
+      )}
+    </div>
+  )}
+</div>
         </div>
 
         {/* Mobile hamburger */}

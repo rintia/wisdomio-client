@@ -15,7 +15,7 @@ export default function SigninPage() {
     const [success, setSuccess] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const router = useRouter();
+   
 
    const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +26,11 @@ export default function SigninPage() {
     const email = form.email.value;
     const password = form.password.value;
 
-    const { data, error } = await authClient.signIn.email({
-        email,
-        password,
-    });
+   const { data, error } = await authClient.signIn.email({
+    email,
+    password,
+    callbackURL: "/", 
+});
 
     setLoading(false);
 
@@ -38,7 +39,7 @@ export default function SigninPage() {
         return;
     }
 
-    router.replace("/");
+   
 };
 
     return (
@@ -73,7 +74,7 @@ export default function SigninPage() {
                             label="Email"
                             placeholder="Enter your email"
                             variant="bordered"
-                            isRequired
+                            required
                         />
 
                         <Input
@@ -81,7 +82,7 @@ export default function SigninPage() {
                             label="Password"
                             placeholder="Enter your password"
                             variant="bordered"
-                            isRequired
+                            required
                             type={showPassword ? "text" : "password"}
                             endContent={
                                 <button

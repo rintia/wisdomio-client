@@ -51,6 +51,7 @@ export default function SignupPage() {
             password,
             name,
             image,
+            callbackURL: "/", 
         });
 
         if (error) {
@@ -60,6 +61,7 @@ export default function SignupPage() {
 
         setSuccess("Account created successfully! Welcome to Wisdomio.");
         form.reset();
+        
 
         console.log(data);
     };
@@ -97,7 +99,7 @@ export default function SignupPage() {
                             label="Name"
                             placeholder="Enter your name"
                             variant="bordered"
-                            isRequired
+                            required
                         />
 
                         <Input
@@ -106,7 +108,7 @@ export default function SignupPage() {
                             label="Email"
                             placeholder="Enter your email"
                             variant="bordered"
-                            isRequired
+                            required
                         />
 
                         <Input
@@ -114,7 +116,7 @@ export default function SignupPage() {
                             label="Photo URL"
                             placeholder="Paste your photo URL"
                             variant="bordered"
-                            isRequired
+                            required
                         />
 
                         <Input
@@ -122,7 +124,7 @@ export default function SignupPage() {
                             label="Password"
                             placeholder="Create a password"
                             variant="bordered"
-                            isRequired
+                            required
                             type={showPassword ? "text" : "password"}
                             endContent={
                                 <button
