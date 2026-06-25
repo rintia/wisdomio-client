@@ -60,9 +60,9 @@ export default function CreateLessonPage() {
             accessLevel: isPremiumUser
                 ? data.accessLevel || "free"
                 : "free",
-            userId: user._id,
-            userName: user.name,
-            userEmail: user.email,
+            userId: user.id,
+            author: user.name,
+            authorEmail: user.email,
             createdAt: new Date(),
         };
 
