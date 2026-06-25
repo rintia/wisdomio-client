@@ -151,6 +151,7 @@ export default function MyLessonsTable({
                       Details
                     </Button>
 
+                   <Link href={`/dashboard/user/my-lessons/${lesson._id}/edit`}>
                     <Button
                       size="sm"
                       variant="flat"
@@ -161,6 +162,7 @@ export default function MyLessonsTable({
                     >
                       Update
                     </Button>
+                    </Link>
 
                     <Button
                       size="sm"
