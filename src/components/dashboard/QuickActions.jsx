@@ -16,21 +16,22 @@ export default function QuickActions() {
 
       <Card.Content>
         <div className="flex flex-col gap-3">
-          <Button
-            as={Link}
-            href="/dashboard/add-lesson"
-            color="success"
-          >
+          <Link  href="/dashboard/add-lesson">
+           <Button>
             Add Lesson
           </Button>
+          </Link>
+         
 
+         <Link href="/dashboard/user/my-lessons">
           <Button
-            as={Link}
-            href="/dashboard/my-lessons"
+          
+            
             variant="bordered"
           >
             My Lessons
           </Button>
+         </Link>
 
           <Button
             as={Link}
