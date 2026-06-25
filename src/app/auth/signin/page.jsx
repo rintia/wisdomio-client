@@ -15,32 +15,32 @@ export default function SigninPage() {
     const [success, setSuccess] = useState("");
     const [loading, setLoading] = useState(false);
 
-   
 
-   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
 
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+        setLoading(true);
 
-   const { data, error } = await authClient.signIn.email({
-    email,
-    password,
-    callbackURL: "/", 
-});
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
 
-    setLoading(false);
+        const { data, error } = await authClient.signIn.email({
+            email,
+            password,
+            callbackURL: "/",
+        });
 
-    if (error) {
-        setError(error.message || "Login failed");
-        return;
-    }
+        setLoading(false);
 
-   
-};
+        if (error) {
+            setError(error.message || "Login failed");
+            return;
+        }
+
+
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-100 flex items-center justify-center px-4 py-10">
@@ -77,26 +77,28 @@ export default function SigninPage() {
                             required
                         />
 
-                        <Input
-                            name="password"
-                            label="Password"
-                            placeholder="Enter your password"
-                            variant="bordered"
-                            required
-                            type={showPassword ? "text" : "password"}
-                            endContent={
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    {showPassword ? (
-                                        <EyeSlash className="w-4 h-4" />
-                                    ) : (
-                                        <Eye className="w-4 h-4" />
-                                    )}
-                                </button>
-                            }
-                        />
+                        <div className="relative">
+                            <Input
+                                name="password"
+                                label="Password"
+                                placeholder="Enter your password"
+                                variant="bordered"
+                                required
+                                type={showPassword ? "text" : "password"}
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 text-default-400"
+                            >
+                                {showPassword ? (
+                                    <EyeSlash className="w-4 h-4" />
+                                ) : (
+                                    <Eye className="w-4 h-4" />
+                                )}
+                            </button>
+                        </div>
 
                         {error && (
                             <p className="text-sm text-danger">{error}</p>

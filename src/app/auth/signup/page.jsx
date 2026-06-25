@@ -51,7 +51,8 @@ export default function SignupPage() {
             password,
             name,
             image,
-            callbackURL: "/", 
+            role: "user",
+            callbackURL: "/",
         });
 
         if (error) {
@@ -61,7 +62,7 @@ export default function SignupPage() {
 
         setSuccess("Account created successfully! Welcome to Wisdomio.");
         form.reset();
-        
+
 
         console.log(data);
     };
@@ -119,28 +120,28 @@ export default function SignupPage() {
                             required
                         />
 
-                        <Input
-                            name="password"
-                            label="Password"
-                            placeholder="Create a password"
-                            variant="bordered"
-                            required
-                            type={showPassword ? "text" : "password"}
-                            endContent={
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        setShowPassword(!showPassword)
-                                    }
-                                >
-                                    {showPassword ? (
-                                        <EyeSlash className="w-4 h-4" />
-                                    ) : (
-                                        <Eye className="w-4 h-4" />
-                                    )}
-                                </button>
-                            }
-                        />
+                        <div className="relative">
+                            <Input
+                                name="password"
+                                label="Password"
+                                placeholder="Create a password"
+                                variant="bordered"
+                                required
+                                type={showPassword ? "text" : "password"}
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-4 top-[30px] z-10 text-default-400"
+                            >
+                                {showPassword ? (
+                                    <EyeSlash className="w-4 h-4" />
+                                ) : (
+                                    <Eye className="w-4 h-4" />
+                                )}
+                            </button>
+                        </div>
 
                         {/* Password Rules */}
                         <div className="text-xs text-black bg-emerald-50 p-3 rounded-xl">

@@ -26,6 +26,7 @@ export default function Navbar() {
   const { data: session, isPending } = useSession();
   const user = session?.user;
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -45,14 +46,14 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-           <Image
-              src="/logo.png"
-              alt="Wisdomio Logo"
-              width={48}
-              height={48}
-              className="rounded-lg"
-              priority
-            />
+          <Image
+            src="/logo.png"
+            alt="Wisdomio Logo"
+            width={48}
+            height={48}
+            className="rounded-lg"
+            priority
+          />
           <span className="hidden text-[15px] font-semibold tracking-tight text-white sm:block">
             Wisdomio
           </span>
@@ -75,70 +76,70 @@ export default function Navbar() {
 
           <div className="h-5 w-px bg-white/15" />
 
-         <div className="flex items-center gap-3 relative">
+          <div className="flex items-center gap-3 relative">
 
-  {!user ? (
-    <>
-      <Link
-        href="/auth/signin"
-        className="text-sm font-medium text-emerald-400 transition hover:text-emerald-300"
-      >
-        Sign In
-      </Link>
+            {!user ? (
+              <>
+                <Link
+                  href="/auth/signin"
+                  className="text-sm font-medium text-emerald-400 transition hover:text-emerald-300"
+                >
+                  Sign In
+                </Link>
 
-      <Button
-        as={Link}
-        href="/auth/signup"
-        radius="lg"
-        className="h-9 bg-emerald-500 px-5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 hover:bg-emerald-400"
-      >
-        Get Started
-      </Button>
-    </>
-  ) : (
-    <div className="relative">
+                <Link href="/auth/signup">
+                  <Button
+                    radius="lg"
+                    className="h-9 bg-emerald-500 px-5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 hover:bg-emerald-400"
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <div className="relative">
 
-      {/* Avatar button */}
-      <button
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center justify-center"
-      >
-        <Image
-          src={user.image || "/default-avatar.png"}
-          alt="user"
-          width={36}
-          height={36}
-          className="rounded-full border border-white/20"
-        />
-      </button>
+                {/* Avatar button */}
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center justify-center"
+                >
+                  <Image
+                    src={user.image || "/default-avatar.png"}
+                    alt="user"
+                    width={36}
+                    height={36}
+                    className="rounded-full border border-white/20"
+                  />
+                </button>
 
-      {/* Dropdown */}
-      {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-52 overflow-hidden rounded-xl border border-white/10 bg-[#0e1412] shadow-xl z-50">
+                {/* Dropdown */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-52 overflow-hidden rounded-xl border border-white/10 bg-[#0e1412] shadow-xl z-50">
 
-          <div className="px-4 py-3 border-b border-white/10">
-            <p className="text-sm font-semibold text-white">
-              {user.name}
-            </p>
-            <p className="text-xs text-gray-400">
-              {user.email}
-            </p>
+                    <div className="px-4 py-3 border-b border-white/10">
+                      <p className="text-sm font-semibold text-white">
+                        {user.name}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {user.email}
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={async () => {
+                        await signOut();
+                        setDropdownOpen(false);
+                      }}
+                      className="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-white/5"
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-
-          <button
-            onClick={async () => {
-              await signOut();
-              setDropdownOpen(false);
-            }}
-            className="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-white/5"
-          >
-            Sign out
-          </button>
-        </div>
-      )}
-    </div>
-  )}
-</div>
         </div>
 
         {/* Mobile hamburger */}
@@ -167,23 +168,81 @@ export default function Navbar() {
               <MobileLink key={link.href} href={link.href} label={link.label} onClick={() => setIsMenuOpen(false)} />
             ))}
 
-            <div className="mt-4 border-t border-white/8 pt-4 flex flex-col gap-3">
-              <Link
-                href="/auth/signin"
-                className="rounded-xl px-4 py-3 text-sm font-medium text-emerald-400 transition hover:bg-white/5"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sign In
-              </Link>
-              <Button
-                as={Link}
-                href="/auth/signup"
-                className="bg-emerald-500 font-semibold text-white"
-                radius="lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Get Started
-              </Button>
+            <div className="mt-4 border-t border-white/8 pt-4">
+
+              {!user ? (
+                <div className="flex flex-col gap-3">
+                  <Link
+                    href="/auth/signin"
+                    className="rounded-xl px-4 py-3 text-sm font-medium text-emerald-400 transition hover:bg-white/5"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+
+                  <Button
+                    as={Link}
+                    href="/auth/signup"
+                    className="bg-emerald-500 font-semibold text-white"
+                    radius="lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Get Started
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+
+                  {/* User row */}
+                  <button
+                    onClick={() => setMobileProfileOpen(!mobileProfileOpen)}
+                    className="flex items-center gap-3 w-full rounded-xl px-3 py-2 hover:bg-white/5"
+                  >
+                    <Image
+                      src={user.image || "/default-avatar.png"}
+                      alt="user"
+                      width={40}
+                      height={40}
+                      className="rounded-full border border-white/20"
+                    />
+
+                    <div className="text-left">
+                      <p className="text-sm font-semibold text-white">
+                        {user.name}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        Tap for options
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Dropdown */}
+                  {mobileProfileOpen && (
+                    <div className="rounded-xl border border-white/10 bg-[#0e1412] overflow-hidden">
+
+                      <div className="px-4 py-3 border-b border-white/10">
+                        <p className="text-sm text-white font-semibold">
+                          {user.name}
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          {user.email}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={async () => {
+                          await signOut();
+                          setIsMenuOpen(false);
+                          setMobileProfileOpen(false);
+                        }}
+                        className="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-white/5"
+                      >
+                        Sign out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
