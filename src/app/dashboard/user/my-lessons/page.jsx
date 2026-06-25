@@ -38,7 +38,7 @@ export default function MyLessonsPage() {
         </p>
       </div>
 
-      <MyLessonsTable lessons={lessons} />
+      <MyLessonsTable lessons={lessons} setLessons={setLessons} />
     </div>
   );
 }
