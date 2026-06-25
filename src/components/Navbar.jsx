@@ -126,6 +126,14 @@ export default function Navbar() {
                       </p>
                     </div>
 
+                    <Link
+                      href="/dashboard/user"
+                      onClick={() => setDropdownOpen(false)}
+                      className="block w-full px-4 py-3 text-left text-sm text-gray-300 hover:bg-white/5 hover:text-white"
+                    >
+                      Dashboard
+                    </Link>
+
                     <button
                       onClick={async () => {
                         await signOut();
@@ -228,6 +236,14 @@ export default function Navbar() {
                           {user.email}
                         </p>
                       </div>
+
+                      <Link
+                        href="/dashboard/user"
+                        onClick={() => setDropdownOpen(false)}
+                        className="block w-full px-4 py-3 text-left text-sm text-gray-300 hover:bg-white/5 hover:text-white"
+                      >
+                        Dashboard
+                      </Link>
 
                       <button
                         onClick={async () => {
