@@ -17,11 +17,13 @@ import {
 import { BookOpen } from "@gravity-ui/icons";
 import { createLesson } from "@/lib/actions/lessons";
 import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export default function CreateLessonPage() {
     // Replace with session/user data later
     const [isPremiumUser] = useState(false);
-
+    const { data: session, isPending } = useSession();
+      const user = session?.user;
     const [errors, setErrors] = useState({});
 
     const router = useRouter();
@@ -58,6 +60,9 @@ export default function CreateLessonPage() {
             accessLevel: isPremiumUser
                 ? data.accessLevel || "free"
                 : "free",
+            userId: user._id,
+            userName: user.name,
+            userEmail: user.email,
             createdAt: new Date(),
         };
 
