@@ -48,12 +48,15 @@ export default function ProfilePage() {
       <Card className="p-8">
 
         <div className="flex flex-col gap-6 md:flex-row md:items-center">
-
-          <Avatar
+            <Avatar className="h-28 w-28 rounded-full ring-2 ring-emerald-500/20">
+            <Avatar.Image
             src={user?.image}
             name={user?.name}
-            className="h-28 w-28"
+            
           />
+          </Avatar>
+
+          
 
           <div className="flex-1">
 

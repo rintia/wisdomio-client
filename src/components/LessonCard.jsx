@@ -114,12 +114,14 @@ export default function LessonCard({ lesson }) {
                 <div className="flex items-center justify-between border-t pt-4">
 
                     <div className="flex items-center gap-3">
-
-                        <Avatar
+                        <Avatar>
+                             <Avatar.Image
                             src={lesson.authorImage}
                             name={lesson.author}
                             size="sm"
                         />
+                            </Avatar>
+                       
 
                         <div>
 
