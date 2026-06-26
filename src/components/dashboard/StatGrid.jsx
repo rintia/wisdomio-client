@@ -1,6 +1,19 @@
+'use client";'
+import { useSession } from "@/lib/auth-client";
 import StatCard from "./StatCard";
+import { useEffect, useState } from "react";
+import { getFavorites } from "@/lib/api/favorite";
 
-export default function StatGrid({ lessons = [] })  {
+export default function StatGrid({ lessons = [] }) {
+  const [favorites, setFavorites] = useState([]);
+  const user = useSession()?.data?.user;
+  useEffect(() => {
+    if (!user) return;
+
+    getFavorites(user.id).then((data) => {
+      setFavorites(data);
+    });
+  }, [user]);
   return (
     <div className="grid gap-4 md:grid-cols-3">
       <StatCard
@@ -11,7 +24,7 @@ export default function StatGrid({ lessons = [] })  {
 
       <StatCard
         title="Favorites"
-        value={lessons.filter((lesson) => lesson.isFavorite).length}
+        value={favorites.length}
         description="Saved lessons"
       />
 
