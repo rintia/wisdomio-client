@@ -23,7 +23,7 @@ export default function CreateLessonPage() {
     // Replace with session/user data later
     const [isPremiumUser] = useState(false);
     const { data: session, isPending } = useSession();
-      const user = session?.user;
+    const user = session?.user;
     const [errors, setErrors] = useState({});
 
     const router = useRouter();
@@ -57,12 +57,15 @@ export default function CreateLessonPage() {
 
         const payload = {
             ...data,
+            image: data.image || "",
             accessLevel: isPremiumUser
                 ? data.accessLevel || "free"
                 : "free",
             userId: user.id,
             author: user.name,
             authorEmail: user.email,
+            authorImage: user.image,
+            visibility: "public",
             createdAt: new Date(),
         };
 
@@ -166,6 +169,21 @@ export default function CreateLessonPage() {
                                 </FieldError>
                             )}
                         </TextField>
+
+                        {/* Image URL */}
+                        <TextField
+                            name="image"
+                            className="flex flex-col gap-1 w-full"
+                        >
+                            <Label>Image URL (Optional)</Label>
+
+                            <Input
+                                type="url"
+                                placeholder="https://example.com/image.jpg"
+                                className={textInputClass}
+                            />
+                        </TextField>
+
 
                         {/* Category + Tone */}
                         <div className="grid md:grid-cols-2 gap-6">

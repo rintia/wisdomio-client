@@ -55,3 +55,14 @@ export const deleteLesson = async (
 
   return res.json();
 };
+
+export const getPublicLessons = async () => {
+  const res = await fetch(
+    `${baseUrl}/api/lessons/public`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  return res.json();
+};

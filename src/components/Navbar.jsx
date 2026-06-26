@@ -35,7 +35,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Public Lessons", href: "/lessons" },
+    { label: "Public Lessons", href: "/public-lessons" },
     { label: "Add Lesson", href: "/dashboard/add-lesson" },
     { label: "My Lessons", href: "/dashboard/user/my-lessons" },
   ];
