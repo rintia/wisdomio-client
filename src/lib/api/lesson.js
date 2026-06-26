@@ -1,5 +1,6 @@
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+// get user lessons by userId
 export const getUserLessons = async (userId) => {
   const res = await fetch(
     `${baseUrl}/api/lessons?userId=${userId}`,
@@ -10,6 +11,8 @@ export const getUserLessons = async (userId) => {
 
   return res.json();
 };
+
+// get lesson by id
 export const getLessonById = async (
   id
 ) => {
@@ -22,6 +25,8 @@ export const getLessonById = async (
 
   return res.json();
 };
+
+// update lesson
 export const updateLesson = async (
   id,
   lessonData
@@ -42,7 +47,7 @@ export const updateLesson = async (
 
   return res.json();
 };
-
+// delete lesson
 export const deleteLesson = async (
   id
 ) => {
@@ -56,6 +61,7 @@ export const deleteLesson = async (
   return res.json();
 };
 
+// public lessons
 export const getPublicLessons = async () => {
   const res = await fetch(
     `${baseUrl}/api/lessons/public`,
