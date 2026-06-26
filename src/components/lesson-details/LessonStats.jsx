@@ -7,6 +7,7 @@ import {
   Bookmark,
 } from "@gravity-ui/icons";
 import LikeButton from "./LikeButton";
+import FavoriteButton from "./FavoriteButton";
 
 export default function LessonStats({
   lesson,
@@ -42,7 +43,7 @@ export default function LessonStats({
             <Bookmark className="h-7 w-7 text-emerald-600" />
 
             <div>
-
+                <FavoriteButton lesson={lesson} />
               <p className="text-sm text-default-500">
                 Favorites
               </p>

@@ -12,10 +12,12 @@ import AuthorCard from "@/components/lesson-details/AuthorCard";
 import LessonStats from "@/components/lesson-details/LessonStats";
 
 import CommentsSection from "@/components/lesson-details/CommentsSection";
+import { useSession } from "@/lib/auth-client";
 
 export default function LessonDetailsPage() {
     const { id } = useParams();
-
+    const { data: session } = useSession();
+    const user = session?.user;
     const [lesson, setLesson] = useState(null);
     const [loading, setLoading] = useState(true);
     console.log(id);
@@ -24,18 +26,19 @@ export default function LessonDetailsPage() {
 
         const loadLesson = async () => {
             try {
-                const data = await getLessonById(id);
-                console.log("Lesson:", data);
+                const data = await getLessonById(
+                    id,
+                    user?.id
+                );
+
                 setLesson(data);
-            } catch (error) {
-                console.error(error);
             } finally {
                 setLoading(false);
             }
         };
 
         loadLesson();
-    }, [id]);
+    }, [id, user?.id]);
 
     if (loading) {
         return (

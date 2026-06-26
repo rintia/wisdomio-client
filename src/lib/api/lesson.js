@@ -30,16 +30,43 @@ export const toggleLike = async (lessonId, userId) => {
 
   return res.json();
 };
-// get lesson by id
-export const getLessonById = async (
-  id
+
+
+// add favorite lesson
+export const toggleFavorite = async (
+  lessonId,
+  userId
 ) => {
   const res = await fetch(
-    `${baseUrl}/api/lessons/${id}`,
+    `${baseUrl}/api/lessons/${lessonId}/favorite`,
     {
-      cache: "no-store",
+      method: "PATCH",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        userId,
+      }),
     }
   );
+
+  return res.json();
+};
+
+// get lesson by id
+export const getLessonById = async (
+  id,
+  userId = ""
+) => {
+  const url = userId
+    ? `${baseUrl}/api/lessons/${id}?userId=${userId}`
+    : `${baseUrl}/api/lessons/${id}`;
+
+  const res = await fetch(url, {
+    cache: "no-store",
+  });
 
   return res.json();
 };
@@ -65,6 +92,7 @@ export const updateLesson = async (
 
   return res.json();
 };
+
 // delete lesson
 export const deleteLesson = async (
   id
