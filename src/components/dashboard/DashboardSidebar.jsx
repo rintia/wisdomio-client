@@ -1,30 +1,38 @@
-
-
-import { Bars, Bell, Envelope, Gear, House, Magnifier, Person } from "@gravity-ui/icons";
+'use client';
+import { usePathname } from "next/navigation";
+import { Bars, FolderPlus, Heart, House, Layers, Person } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 
 export function DashboardSidebar() {
+    const pathname = usePathname();
     const navItems = [
-        { icon: House, label: "Home" },
-        { icon: Magnifier, label: "Search" },
-        { icon: Bell, label: "Notifications" },
-        { icon: Envelope, label: "Messages" },
-        { icon: Person, label: "Profile" },
-        { icon: Gear, label: "Settings" },
+        { icon: House, label: "Home", href: "/dashboard/user" },
+        { icon: FolderPlus, label: "Add Lesson", href: "/dashboard/add-lesson" },
+        { icon: Layers, label: "My Lessons", href: "/dashboard/user/my-lessons" },
+        { icon: Heart, label: "My Favorites", href: "/dashboard/user/my-favorites" },
+        { icon: Person, label: "Profile", href: "/dashboard/user/profile" },
+
     ];
-    const navContent = <nav className="flex flex-col gap-1">
-        {navItems.map((item) => (
-            <button
-                key={item.label}
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-zinc-200 transition-colors hover:bg-default"
-                type="button"
-            >
-                <item.icon className="size-5 text-muted" />
-                {item.label}
-            </button>
-        ))}
-    </nav>
+    const navContent = (
+        <nav className="flex flex-col gap-1">
+            {navItems.map((item) => (
+                <Link
+                    key={item.label}
+                    href={item.href}
+                    className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${pathname === item.href
+                            ? "bg-emerald-600 text-white"
+                            : "text-zinc-200 hover:bg-default"
+                        }`}
+                >
+                    <item.icon className="size-5" />
+                    <span>{item.label}</span>
+                </Link>
+            ))}
+        </nav>
+    )
+
+    
 
     return (
         <>
