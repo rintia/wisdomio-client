@@ -104,7 +104,7 @@ export default function FavoriteButton({
             }
         >
 
-            {count} Saves
+            {count} Favorite
 
         </Button>
 

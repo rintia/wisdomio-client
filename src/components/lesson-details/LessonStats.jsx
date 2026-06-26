@@ -44,13 +44,6 @@ export default function LessonStats({
 
             <div>
                 <FavoriteButton lesson={lesson} />
-              <p className="text-sm text-default-500">
-                Favorites
-              </p>
-
-              <h3 className="text-3xl font-bold">
-                {lesson.savedCount || 0}
-              </h3>
 
             </div>
 
