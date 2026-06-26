@@ -11,7 +11,25 @@ export const getUserLessons = async (userId) => {
 
   return res.json();
 };
+// Like lesson
+export const toggleLike = async (lessonId, userId) => {
+  const res = await fetch(
+    `${baseUrl}/api/lessons/${lessonId}/like`,
+    {
+      method: "PATCH",
 
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        userId,
+      }),
+    }
+  );
+
+  return res.json();
+};
 // get lesson by id
 export const getLessonById = async (
   id

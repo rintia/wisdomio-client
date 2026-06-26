@@ -6,11 +6,13 @@ import {
   Heart,
   Bookmark,
 } from "@gravity-ui/icons";
+import LikeButton from "./LikeButton";
 
 export default function LessonStats({
   lesson,
 }) {
   return (
+    
     <Card className="p-6">
 
       <h2 className="mb-6 text-2xl font-bold">
@@ -26,15 +28,7 @@ export default function LessonStats({
             <Heart className="h-7 w-7 text-red-500" />
 
             <div>
-
-              <p className="text-sm text-default-500">
-                Likes
-              </p>
-
-              <h3 className="text-3xl font-bold">
-                {lesson.likes || 0}
-              </h3>
-
+            <LikeButton lesson={lesson} />
             </div>
 
           </div>

@@ -28,6 +28,7 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
 
+  console.log(user);
   const handleSignOut = async () => {
     await signOut();
 

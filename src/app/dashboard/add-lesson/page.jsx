@@ -66,6 +66,8 @@ export default function CreateLessonPage() {
             authorEmail: user.email,
             authorImage: user.image,
             visibility: "public",
+            likes: [],
+            likesCount: 0,
             createdAt: new Date(),
         };
 
