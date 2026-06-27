@@ -8,10 +8,16 @@ import { useState } from "react";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 
 export default function SignupPage() {
+    const router = useRouter()
+    const handleSignOut = async () => {
+        await authClient.singOut();
+    }
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -63,9 +69,25 @@ export default function SignupPage() {
         setSuccess("Account created successfully! Welcome to Wisdomio.");
         form.reset();
 
+        if (!error) {
+            handleSignOut
+            router.push('/auth/signin')
+            toast.success('Register successful')
+        }
+        else {
+            toast.error(data.message || "Signup failed ❌");
+            return;
+        }
+
 
         console.log(data);
     };
+
+     const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+        provider: 'google'
+    })
+  }
 
 
 
@@ -184,7 +206,7 @@ export default function SignupPage() {
                     </div>
 
                     {/* Google Login */}
-                    <Button
+                    <Button onClick={handleGoogleSignIn}
                         variant="bordered"
                         size="lg"
                         className="w-full text-black"
