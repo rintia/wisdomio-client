@@ -14,5 +14,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/dashboard/add-lesson", "/lessons/:path", '/dashboard/user/my-lessons', '/dashboard/user/favorites', '/dashboard/user/profile', '/dashboard/user/my-lessons/path', '/dashboard/user'],
+  matcher: ["/dashboard/add-lesson", "/lessons/:path", '/dashboard/user/my-lessons', '/dashboard/user/favorites', '/dashboard/user/profile', '/dashboard/user/my-lessons/path', '/dashboard/user', '/upgrade'],
 };
