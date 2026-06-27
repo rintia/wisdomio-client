@@ -39,6 +39,7 @@ export default function Navbar() {
     { label: "Public Lessons", href: "/public-lessons" },
     { label: "Add Lesson", href: "/dashboard/add-lesson" },
     { label: "My Lessons", href: "/dashboard/user/my-lessons" },
+    { label: "Upgrade", href: "/upgrade" },
   ];
 
   return (
