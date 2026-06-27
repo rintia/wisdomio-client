@@ -9,6 +9,7 @@ import {
 } from "@heroui/react";
 
 import { toast } from "react-hot-toast";
+import { updateLessonVisibility } from "@/lib/api/lesson";
 
 import {
     Eye,
@@ -31,6 +32,41 @@ export default function MyLessonsTable({
 
     const [selectedLessonId, setSelectedLessonId] =
         useState(null);
+    const handleVisibilityToggle = async (
+        lessonId,
+        currentVisibility
+    ) => {
+        const newVisibility =
+            currentVisibility === "public"
+                ? "private"
+                : "public";
+
+        try {
+            await updateLessonVisibility(
+                lessonId,
+                newVisibility
+            );
+
+            setLessons((prev) =>
+                prev.map((lesson) =>
+                    lesson._id === lessonId
+                        ? {
+                            ...lesson,
+                            visibility: newVisibility,
+                        }
+                        : lesson
+                )
+            );
+
+            toast.success(
+                `Lesson is now ${newVisibility}.`
+            );
+        } catch {
+            toast.error(
+                "Failed to update visibility."
+            );
+        }
+    };
     const handleDelete = async () => {
         try {
             const res = await deleteLesson(
@@ -116,18 +152,25 @@ export default function MyLessonsTable({
 
                                 {/* Visibility */}
                                 <td className="px-4 py-4">
-                                    <Chip
-                                        color={
-                                            lesson.visibility ===
-                                                "public"
-                                                ? "success"
-                                                : "warning"
+
+                                    <button
+                                        onClick={() =>
+                                            handleVisibilityToggle(
+                                                lesson._id,
+                                                lesson.visibility
+                                            )
                                         }
-                                        variant="flat"
+                                        className={`rounded-full px-4 py-1 text-sm font-medium transition
+      ${lesson.visibility === "public"
+                                                ? "bg-green-100 text-green-700 hover:bg-green-200"
+                                                : "bg-orange-100 text-orange-700 hover:bg-orange-200"
+                                            }`}
                                     >
-                                        {lesson.visibility ||
-                                            "Public"}
-                                    </Chip>
+                                        {lesson.visibility === "public"
+                                            ? "🌍 Public"
+                                            : "🔒 Private"}
+                                    </button>
+
                                 </td>
 
                                 {/* Access */}
@@ -162,7 +205,7 @@ export default function MyLessonsTable({
                                     <div className="flex items-center gap-2">
                                         <Heart className="h-4 w-4" />
 
-                                        {lesson.reactionCount ||
+                                        {lesson.likesCount ||
                                             0}
                                     </div>
                                 </td>
@@ -172,25 +215,21 @@ export default function MyLessonsTable({
                                     <div className="flex items-center gap-2">
                                         <Bookmark className="h-4 w-4" />
 
-                                        {lesson.savedCount || 0}
+                                        {lesson.savesCount || 0}
                                     </div>
                                 </td>
 
                                 {/* Actions */}
                                 <td className="px-4 py-4">
                                     <div className="flex items-center justify-center gap-2">
-                                        <Button
-                                            as={Link}
+                                        <Link
                                             href={`/lessons/${lesson._id}`}
-                                            size="sm"
-                                            variant="flat"
-                                            color="primary"
-                                            startContent={
-                                                <Eye className="h-4 w-4" />
-                                            }
+                                            className="button button--primary"
                                         >
-                                            Details
-                                        </Button>
+                                            See Details
+
+                                        </Link>
+
 
                                         <Link href={`/dashboard/user/my-lessons/${lesson._id}/edit`}>
                                             <Button

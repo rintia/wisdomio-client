@@ -56,24 +56,24 @@ export default function UserLessonCard({
 
           <span className="flex items-center gap-1">
             <Heart className="h-4 w-4" />
-            {lesson.savedCount || 0}
+            {lesson.savesCount || 0}
           </span>
 
           <span className="flex items-center gap-1">
             <BookOpen className="h-4 w-4" />
-            {lesson.reactionCount || 0}
+            {lesson.likesCount || 0}
           </span>
 
         </div>
 
-        <Button
-          as={Link}
-          href={`/lessons/${lesson._id}`}
-          size="sm"
-          color="success"
-        >
-          Read
-        </Button>
+        <Link
+                href={`/lessons/${lesson._id}`}
+                        className="button button--primary"
+                    >
+                        Read
+                        
+                    </Link>
+        
 
       </div>
 

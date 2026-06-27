@@ -54,7 +54,26 @@ export const toggleFavorite = async (
 
   return res.json();
 };
+// update lesson visibility
+export const updateLessonVisibility = async (
+  id,
+  visibility
+) => {
+  const res = await fetch(
+    `${baseUrl}/api/lessons/${id}/visibility`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        visibility,
+      }),
+    }
+  );
 
+  return res.json();
+};
 // get lesson by id
 export const getLessonById = async (
   id,
