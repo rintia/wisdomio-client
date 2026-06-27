@@ -74,6 +74,17 @@ export const updateLessonVisibility = async (
 
   return res.json();
 };
+// most saved lessons
+export const getMostSavedLessons = async () => {
+  const res = await fetch(
+    `${baseUrl}/api/lessons/most-saved`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  return res.json();
+};
 // get lesson by id
 export const getLessonById = async (
   id,
