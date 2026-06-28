@@ -12,12 +12,12 @@ import {
     Select,
     ListBox,
     Button,
-    toast,
 } from "@heroui/react";
 import { BookOpen } from "@gravity-ui/icons";
 import { createLesson } from "@/lib/actions/lessons";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 export default function CreateLessonPage() {
 

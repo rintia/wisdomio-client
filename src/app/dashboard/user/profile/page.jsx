@@ -55,13 +55,20 @@ export default function ProfilePage() {
             <Card className="p-8">
 
                 <div className="flex flex-col gap-6 md:flex-row md:items-center">
-                    <Avatar className="h-28 w-28 rounded-full ring-2 ring-emerald-500/20">
-                        <Avatar.Image
-                            src={user?.image}
-                            name={user?.name}
+                    <div className="relative inline-block">
+                        <Avatar className="h-28 w-28 rounded-full ring-2 ring-emerald-500/20">
+                            <Avatar.Image
+                                src={user?.image}
+                                name={user?.name}
+                            />
+                        </Avatar>
 
-                        />
-                    </Avatar>
+                        {user?.isPremium && (
+                            <div className="absolute -bottom-1 -right-1 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-yellow-300 to-amber-500 shadow-lg ring-4 ring-white">
+                                <Star className="h-5 w-5 fill-white text-white" />
+                            </div>
+                        )}
+                    </div>
 
 
 
@@ -73,13 +80,12 @@ export default function ProfilePage() {
                                 {user?.name}
                             </h1>
 
-                            {user?.role === "premium" && (
-                                <Chip
-                                    color="warning"
-                                    variant="solid"
-                                    startContent={<Star className="w-4 h-4" />}
-                                >
-                                    Premium
+                            {user?.isPremium && (
+                                <Chip color="warning" variant="solid">
+                                    <div className="flex items-center gap-1">
+                                        <Star className="h-4 w-4" />
+                                        <span>Premium</span>
+                                    </div>
                                 </Chip>
                             )}
 

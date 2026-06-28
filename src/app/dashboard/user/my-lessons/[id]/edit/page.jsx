@@ -39,8 +39,7 @@ export default function EditLessonPage({
     useState(false);
 
   // Change later if you have premium logic
-  const [isPremiumUser] =
-    useState(false);
+  const isPremiumUser = user?.isPremium;
 
   useEffect(() => {
     const loadLesson = async () => {
