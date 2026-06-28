@@ -23,7 +23,7 @@ export default function LessonCard({ lesson }) {
     const user = session?.user;
 
     const isPremiumUser =
-        user?.role === "premium";
+        user?.isPremium === true;
 
     const locked =
         lesson.accessLevel === "premium" &&
@@ -115,13 +115,13 @@ export default function LessonCard({ lesson }) {
 
                     <div className="flex items-center gap-3">
                         <Avatar>
-                             <Avatar.Image
-                            src={lesson.authorImage}
-                            name={lesson.author}
-                            size="sm"
-                        />
-                            </Avatar>
-                       
+                            <Avatar.Image
+                                src={lesson.authorImage}
+                                name={lesson.author}
+                                size="sm"
+                            />
+                        </Avatar>
+
 
                         <div>
 
@@ -145,10 +145,14 @@ export default function LessonCard({ lesson }) {
 
 
                     <Link
-                        href={`/lessons/${lesson._id}`}
+                        href={
+                            locked
+                                ? "/upgrade"
+                                : `/lessons/${lesson._id}`
+                        }
                         className="button button--primary"
                     >
-                        See Details
+                        {locked ? "Upgrade to View" : "See Details"}
                         <ArrowRight className="h-4 w-4" />
                     </Link>
 

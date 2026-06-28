@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useSession, signOut } from "@/lib/auth-client";
+import { Star } from "@gravity-ui/icons";
 
 
 
@@ -39,8 +40,14 @@ export default function Navbar() {
     { label: "Public Lessons", href: "/public-lessons" },
     { label: "Add Lesson", href: "/dashboard/add-lesson" },
     { label: "My Lessons", href: "/dashboard/user/my-lessons" },
-    { label: "Upgrade", href: "/upgrade" },
   ];
+
+  if (!user?.isPremium) {
+    navLinks.push({
+      label: "Upgrade",
+      href: "/upgrade",
+    });
+  }
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/8 bg-[#080c0a]/85 backdrop-blur-xl">
@@ -75,6 +82,13 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+
+          {user?.isPremium && (
+            <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-1.5 text-sm font-semibold text-white shadow-lg shadow-yellow-500/20">
+              <Star className="h-4 w-4 fill-current" />
+              Premium
+            </div>
+          )}
 
           <div className="h-5 w-px bg-white/15" />
 
@@ -177,6 +191,15 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <MobileLink key={link.href} href={link.href} label={link.label} onClick={() => setIsMenuOpen(false)} />
             ))}
+
+            {user?.isPremium && (
+              <div className="mb-4 flex justify-center">
+                <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-yellow-500/20">
+                  <Star className="h-4 w-4 fill-current" />
+                  Premium Member
+                </div>
+              </div>
+            )}
 
             <div className="mt-4 border-t border-white/8 pt-4">
 

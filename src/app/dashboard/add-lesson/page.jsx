@@ -20,10 +20,10 @@ import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 
 export default function CreateLessonPage() {
-    // Replace with session/user data later
-    const [isPremiumUser] = useState(false);
+
     const { data: session, isPending } = useSession();
     const user = session?.user;
+    const isPremiumUser = user?.isPremium;
     const [errors, setErrors] = useState({});
 
     const router = useRouter();
@@ -58,9 +58,10 @@ export default function CreateLessonPage() {
         const payload = {
             ...data,
             image: data.image || "",
-            accessLevel: isPremiumUser
-                ? data.accessLevel || "free"
-                : "free",
+            accessLevel:
+                isPremiumUser && data.accessLevel
+                    ? data.accessLevel
+                    : "free",
             userId: user.id,
             author: user.name,
             authorEmail: user.email,
@@ -299,7 +300,9 @@ export default function CreateLessonPage() {
 
 
                         {/* Access Level */}
+                        {/* Access Level */}
                         <div className="space-y-2">
+
                             <Select
                                 name="accessLevel"
                                 isDisabled={!isPremiumUser}
@@ -307,17 +310,14 @@ export default function CreateLessonPage() {
                             >
                                 <Label>Access Level</Label>
 
-                                <Select.Trigger
-                                    className={triggerClasses}
-                                >
+                                <Select.Trigger className={triggerClasses}>
                                     <Select.Value />
                                     <Select.Indicator />
                                 </Select.Trigger>
 
-                                <Select.Popover
-                                    className={popoverClasses}
-                                >
+                                <Select.Popover className={popoverClasses}>
                                     <ListBox>
+
                                         <ListBox.Item
                                             id="free"
                                             className={listItemClasses}
@@ -325,22 +325,29 @@ export default function CreateLessonPage() {
                                             Free
                                         </ListBox.Item>
 
-                                        <ListBox.Item
-                                            id="premium"
-                                            className={listItemClasses}
-                                        >
-                                            Premium
-                                        </ListBox.Item>
+                                        {isPremiumUser && (
+                                            <ListBox.Item
+                                                id="premium"
+                                                className={listItemClasses}
+                                            >
+                                                Premium ⭐
+                                            </ListBox.Item>
+                                        )}
+
                                     </ListBox>
                                 </Select.Popover>
                             </Select>
 
-                            {!isPremiumUser && (
+                            {isPremiumUser ? (
+                                <p className="text-xs text-emerald-600">
+                                    As a Premium member, you can publish both free and premium lessons.
+                                </p>
+                            ) : (
                                 <p className="text-xs text-amber-600">
-                                    Upgrade to Premium to create paid
-                                    lessons.
+                                    Upgrade to Premium to publish premium-only lessons.
                                 </p>
                             )}
+
                         </div>
                     </Fieldset>
 

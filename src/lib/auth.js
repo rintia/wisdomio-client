@@ -26,6 +26,11 @@ export const auth = betterAuth({
       role: {
         default: "user",
       },
+      isPremium: {
+        type: "boolean",
+        default: false,
+      },
+
     },
   },
 });
