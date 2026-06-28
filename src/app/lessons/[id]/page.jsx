@@ -9,6 +9,7 @@ import LessonContent from "@/components/lesson-details/LessonContent";
 import LessonMetadata from "@/components/lesson-details/LessonMetadata";
 import AuthorCard from "@/components/lesson-details/AuthorCard";
 import LessonStats from "@/components/lesson-details/LessonStats";
+import ReportLessonButton from "@/components/lesson-details/ReportLessonButton";
 
 import CommentsSection from "@/components/lesson-details/CommentsSection";
 import { useSession } from "@/lib/auth-client";
@@ -82,6 +83,10 @@ export default function LessonDetailsPage() {
 
                 <div className="mt-8">
                     <LessonStats lesson={lesson} />
+                </div>
+
+                <div className="mt-6 flex justify-end">
+                    <ReportLessonButton lesson={lesson} />
                 </div>
 
                 <div className="mt-8">
