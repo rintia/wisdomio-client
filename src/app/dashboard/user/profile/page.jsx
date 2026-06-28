@@ -107,55 +107,47 @@ export default function ProfilePage() {
 
             </Card>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            {user?.role !== "admin" && (
+                <>
+                    <div className="grid gap-6 md:grid-cols-2">
 
-                <Card className="p-6">
+                        <Card className="p-6">
+                            <div className="flex items-center gap-3">
+                                <BookOpen className="h-7 w-7 text-emerald-600" />
 
-                    <div className="flex items-center gap-3">
+                                <div>
+                                    <p className="text-sm text-default-500">
+                                        Lessons Created
+                                    </p>
 
-                        <BookOpen className="h-7 w-7 text-emerald-600" />
+                                    <h2 className="text-3xl font-bold">
+                                        {lessons.length}
+                                    </h2>
+                                </div>
+                            </div>
+                        </Card>
 
-                        <div>
+                        <Card className="p-6">
+                            <div className="flex items-center gap-3">
+                                <Heart className="h-7 w-7 text-pink-500" />
 
-                            <p className="text-sm text-default-500">
-                                Lessons Created
-                            </p>
+                                <div>
+                                    <p className="text-sm text-default-500">
+                                        Total Saves
+                                    </p>
 
-                            <h2 className="text-3xl font-bold">
-                                {lessons.length}
-                            </h2>
-
-                        </div>
-
-                    </div>
-
-                </Card>
-
-                <Card className="p-6">
-
-                    <div className="flex items-center gap-3">
-
-                        <Heart className="h-7 w-7 text-pink-500" />
-
-                        <div>
-
-                            <p className="text-sm text-default-500">
-                                Total Saves
-                            </p>
-
-                            <h2 className="text-3xl font-bold">
-                                {favorites.length}
-                            </h2>
-
-                        </div>
+                                    <h2 className="text-3xl font-bold">
+                                        {favorites.length}
+                                    </h2>
+                                </div>
+                            </div>
+                        </Card>
 
                     </div>
 
-                </Card>
-
-            </div>
-
-            <UserLessonsGrid lessons={lessons} />
+                    <UserLessonsGrid lessons={lessons} />
+                </>
+            )}
 
         </div>
     );
