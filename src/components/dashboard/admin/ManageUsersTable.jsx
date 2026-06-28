@@ -15,12 +15,13 @@ export default function ManageUsersTable({
     users,
     setUsers,
 }) {
+    console.log(users);
     const handlePromote = async (id) => {
         await makeAdmin(id);
 
         setUsers((prev) =>
             prev.map((user) =>
-                user.id === id
+                user._id === id
                     ? {
                         ...user,
                         role: "admin",
@@ -66,7 +67,7 @@ export default function ManageUsersTable({
                 <tbody>
                     {users.map((user) => (
                         <tr
-                            key={user.id}
+                            key={user._id}
                             className="border-t"
                         >
                             <td className="px-4 py-4">
@@ -123,7 +124,7 @@ export default function ManageUsersTable({
                                     {user.role !== "admin" ? (
                                         <Button
                                             size="sm"
-                                            onPress={() => handlePromote(user.id)}
+                                            onPress={() => handlePromote(user._id)}
                                             className="bg-amber-500 text-white hover:bg-amber-600"
                                         >
                                             <Shield className="mr-2 h-4 w-4" />
