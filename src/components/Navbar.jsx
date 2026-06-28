@@ -143,7 +143,11 @@ export default function Navbar() {
                     </div>
 
                     <Link
-                      href="/dashboard/user"
+                      href={
+                        user?.role === "admin"
+                          ? "/dashboard/admin"
+                          : "/dashboard/user"
+                      }
                       onClick={() => setDropdownOpen(false)}
                       className="block w-full px-4 py-3 text-left text-sm text-gray-300 hover:bg-white/5 hover:text-white"
                     >
@@ -263,8 +267,15 @@ export default function Navbar() {
                       </div>
 
                       <Link
-                        href="/dashboard/user"
-                        onClick={() => setDropdownOpen(false)}
+                        href={
+                          user?.role === "admin"
+                            ? "/dashboard/admin"
+                            : "/dashboard/user"
+                        }
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          setMobileProfileOpen(false);
+                        }}
                         className="block w-full px-4 py-3 text-left text-sm text-gray-300 hover:bg-white/5 hover:text-white"
                       >
                         Dashboard
