@@ -11,6 +11,34 @@ export const getUsers = async () => {
   return res.json();
 };
 
+export async function getReportedLessons() {
+  const res = await fetch(`${baseUrl}/api/admin/reported-lessons`);
+
+  return res.json();
+}
+
+export async function ignoreReports(lessonId) {
+  const res = await fetch(
+    `${baseUrl}/api/admin/reported-lessons/${lessonId}/ignore`,
+    {
+      method: "PATCH",
+    }
+  );
+
+  return res.json();
+}
+
+export async function deleteReportedLesson(lessonId) {
+  const res = await fetch(
+    `${baseUrl}/api/admin/reported-lessons/${lessonId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  return res.json();
+}
+
 export const makeAdmin = async (
   id
 ) => {
