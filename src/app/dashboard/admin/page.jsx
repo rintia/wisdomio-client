@@ -4,9 +4,8 @@ import AdminStats from "@/components/admin/AdminStats";
 import LessonGrowthChart from "@/components/admin/LessonGrowthChart";
 import UserGrowthChart from "@/components/admin/UserGrowthChart";
 import TopContributors from "@/components/admin/TopContributors";
-import RecentLessons from "@/components/admin/RecentLessons";
-import ReportedLessons from "@/components/admin/ReportedLessons";
-import QuickActions from "@/components/admin/QuickActions";
+
+
 
 export default function AdminDashboard() {
   return (
@@ -31,12 +30,10 @@ export default function AdminDashboard() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <TopContributors />
-        <QuickActions />
+        
       </div>
 
-      <RecentLessons />
-
-      <ReportedLessons />
+      
 
     </div>
   );

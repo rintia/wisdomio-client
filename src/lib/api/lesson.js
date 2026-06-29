@@ -101,6 +101,27 @@ export const getLessonById = async (
   return res.json();
 };
 
+// featured lessons
+export async function toggleFeaturedLesson(id) {
+  const res = await fetch(
+    `${baseUrl}/api/lessons/feature/${id}`,
+    {
+      method: "PATCH",
+    }
+  );
+
+  return res.json();
+}
+
+// get featured lessons
+export const getFeaturedLessons = async () => {
+  const res = await fetch(
+    `${baseUrl}/api/featured-lessons`
+  );
+
+  return res.json();
+};
+
 // update lesson
 export const updateLesson = async (
   id,

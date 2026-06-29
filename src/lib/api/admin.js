@@ -11,6 +11,14 @@ export const getUsers = async () => {
   return res.json();
 };
 
+export async function getAdminStats() {
+  const res = await fetch(
+    `${baseUrl}/api/admin/stats`
+  );
+
+  return res.json();
+}
+
 export async function getReportedLessons() {
   const res = await fetch(`${baseUrl}/api/admin/reported-lessons`);
 

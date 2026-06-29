@@ -1,33 +1,26 @@
+
+
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+
 import { Card, Button } from "@heroui/react";
 import { StarFill } from "@gravity-ui/icons";
 
+import { getFeaturedLessons } from "@/lib/api/lesson";
+
 export default function FeaturedLessons() {
-  const featuredLessons = [
-    {
-      _id: "1",
-      title: "Failure Is a Better Teacher Than Success",
-      excerpt:
-        "The lessons I learned from failure shaped my character far more than my achievements ever did.",
-      author: "Sarah Ahmed",
-    },
-    {
-      _id: "2",
-      title: "Small Habits Create Big Changes",
-      excerpt:
-        "Improvement doesn't happen overnight. Tiny daily actions compound into remarkable results.",
-      author: "Hasan Rahman",
-    },
-    {
-      _id: "3",
-      title: "Learning to Let Go",
-      excerpt:
-        "Sometimes growth comes from releasing what no longer serves us rather than holding on tighter.",
-      author: "Nusrat Jahan",
-    },
-  ];
+  const [featuredLessons, setFeaturedLessons] = useState([]);
+
+  useEffect(() => {
+    async function loadFeatured() {
+      const data = await getFeaturedLessons();
+      setFeaturedLessons(data);
+    }
+
+    loadFeatured();
+  }, []);
 
   return (
     <section className="py-20">
@@ -63,21 +56,33 @@ export default function FeaturedLessons() {
                   {lesson.title}
                 </h3>
 
-                <p className="mb-4 flex-grow text-default-500">
-                  {lesson.excerpt}
+                <p className="mb-4 flex-grow text-default-500 line-clamp-3">
+                  {lesson.description}
                 </p>
 
-                <div className="mb-4 text-sm text-default-400">
-                  By {lesson.author}
+                <div className="mb-4 flex items-center gap-3">
+                  <img
+                    src={lesson.authorImage}
+                    alt={lesson.author}
+                    className="h-9 w-9 rounded-full object-cover"
+                  />
+
+                  <div>
+                    <p className="font-medium">{lesson.author}</p>
+                    <p className="text-xs text-default-500">
+                      {lesson.category}
+                    </p>
+                  </div>
                 </div>
 
+                <Link href={`/lessons/${lesson._id}`}>
                 <Button
-                  as={Link}
-                  href={`/lessons/${lesson._id}`}
-                  color="warning"
+                color="warning"
                 >
                   Read Lesson
                 </Button>
+                </Link>
+                
               </div>
             </Card>
           ))}
